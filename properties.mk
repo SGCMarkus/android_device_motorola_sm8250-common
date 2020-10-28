@@ -510,4 +510,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.mot.factory=false
 # }}}
 
+# Zygote {{{
+PRODUCT_PROPERTY_OVERRIDES += \
+    zygote.critical_window.minute=10
+# }}}
 # vim:fdm=marker
