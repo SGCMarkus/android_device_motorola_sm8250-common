@@ -1,6 +1,5 @@
-#! /vendor/bin/sh
 #==============================================================================
-#       init.qti.media.sh
+#       init.qti.media.rc
 #
 # Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
 #
@@ -29,38 +28,17 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #===============================================================================
+service qti-media /vendor/bin/init.qti.media.sh
+    class main
+    user media
+    group media
+    disabled
+    oneshot
+    seclabel u:r:vendor_qti_media:s0
 
-build_codename=`getprop vendor.media.system.build_codename`
+on early-init
+    setprop vendor.media.system.build_codename ${ro.build.version.release_or_codename}
+    start qti-media
 
-if [ -f /sys/devices/soc0/soc_id ]; then
-    soc_hwid=`cat /sys/devices/soc0/soc_id` 2> /dev/null
-else
-    soc_hwid=`cat /sys/devices/system/soc/soc0/id` 2> /dev/null
-fi
-
-target=`getprop ro.board.platform`
-case "$target" in
-   "bengal")
-       case "$soc_hwid" in
-           441|471|473|474)
-               setprop vendor.media.target.version 2
-               sku_ver=`cat /sys/devices/platform/soc/5a00000.qcom,vidc1/sku_version` 2> /dev/null
-               if [ $sku_ver -eq 1 ]; then
-                   setprop vendor.media.target.version 3
-               fi
-               ;;
-           518)
-               setprop vendor.media.target.version 3
-               if [ $build_codename -le "12" ]; then
-                   setprop vendor.netflix.bsp_rev "Q6115-31409-1"
-               fi
-               ;;
-           *)
-               sku_ver=`cat /sys/devices/platform/soc/5a00000.qcom,vidc/sku_version` 2> /dev/null
-               if [ $sku_ver -eq 1 ]; then
-                   setprop vendor.media.target.version 1
-               fi
-               ;;
-       esac
-       ;;
-esac
+on post-fs-data
+    setprop vendor.sys.media.target.version ${vendor.media.target.version}

@@ -411,3 +411,13 @@ service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@
     writepid /dev/cpuset/system-background/tasks
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
+
+# from hardware/interfaces/sensors/2.1/multihal
+# to add input and uhid group access
+service vendor.sensors-hal-2-1-multihal /vendor/bin/hw/android.hardware.sensors@2.1-service.multihal
+    class hal
+    user system
+    group system wakelock context_hub input uhid
+    writepid /dev/cpuset/system-background/tasks
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10

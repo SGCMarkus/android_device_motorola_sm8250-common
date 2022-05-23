@@ -426,6 +426,12 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/class/fingerprint/fpc1020 irq_cnt    0440     system    system
 /sys/class/fingerprint/fpc1020 dev_enable 0220     system    system
 /sys/class/fingerprint/fpc1020 vendor     0444     system    system
+/sys/class/fingerprint/fpc1020 hw_reset   0220     system    system
+
+/sys/devices/platform/soc/soc\:fpc_fpc1020 irq          0440     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 irq_cnt      0440     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 dev_enable   0220     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 hw_reset     0220     system    system
 
 # Motorola: Add for QVR(qvrservice) to access the glass usb device
 /dev/bus/usb/001/*     0660    system     system
