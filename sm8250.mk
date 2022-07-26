@@ -99,7 +99,8 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcreverb \
     libreverbwrapper \
-    libvisualizer
+    libvisualizer \
+    sound_trigger.primary.kona
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
